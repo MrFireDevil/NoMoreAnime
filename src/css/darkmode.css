@@ -1,81 +1,119 @@
-/* Darkmode */
+/* Hintergrund für den gesamten Body */
+body {
+    background-color: #fff; /* Weißer Hintergrund im Light Mode */
+    color: #000; /* Schwarze Schrift im Light Mode */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Sanfter Übergang zwischen den Modi */
+}
+
+/* Dark Mode Hintergrund */
 body.dark-mode {
-    background-color: #202124;
-    color: #FFFFFF;
-}
-
-/* Darkmode-Spezifische Styles */
-body.dark-mode .anime {
-    background-color: #292a2d;
-    border-color: #292a2d;
-}
-
-body.dark-mode button {
-    background-color: #fe8432;
+    background-color: #202124; /* Dunkler Hintergrund im Dark Mode */
+    color: #fff; /* Weiße Schrift im Dark Mode */
 }
 
 body.dark-mode #pagination {
-    background-color: #202124;
-    color: white;
+    background-color: #202124; /* Dunkler Hintergrund für den Pagination-Container im Dark Mode */
 }
 
-/* Darkmode für den Dot */
-body.dark-mode .dot {
-    background-color: #666666;
+/* Dark Mode: Dunklere Umrandung für Anime-Container */
+body.dark-mode .anime {
+    border-color: #444444; /* Dunklere Umrandung im Dark Mode */
 }
 
-body.dark-mode .dot.active {
-    background-color: #999999;
+/* Light Mode Anpassungen für andere Container */
+body:not(.dark-mode) #header {
+    background-color: #fff; /* Weißer Hintergrund für den Header im Light Mode */
 }
 
-.theme-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+body:not(.dark-mode) #buttons {
+    background-color: #fff; /* Weißer Hintergrund für den Buttons-Container im Light Mode */
 }
 
-.theme-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
+body:not(.dark-mode) #pagination {
+    background-color: #fff; /* Weißer Hintergrund für den Pagination-Container im Light Mode */
 }
 
-.slider {
-    position: absolute;
+/* Stil für die Import- und Export-Buttons */
+button {
+    background: none;
+    border: none;
     cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
+    padding: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: auto;
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
+/* Symbole im Button */
+button i {
+    font-size: 20px; /* Größe der Symbole */
+    transition: color 0.3s ease; /* Weicher Übergang der Farbe */
 }
 
-input:checked + .slider {
-    background-color: #2196F3;
+/* Dark Mode: Orange für die Symbole */
+body.dark-mode button i {
+    color: #ff6600; /* Orange für den Dark Mode */
 }
 
-input:checked + .slider:before {
-    transform: translateX(26px);
+/* Light Mode: Schwarze Symbole */
+body:not(.dark-mode) button i {
+    color: #000000; /* Schwarz für den Light Mode */
 }
 
-/* Abgerundete Slider */
-.slider.round {
-    border-radius: 34px;
+/* Hover-Effekt für die Buttons */
+button:hover i {
+    color: #d75d00; /* Dunkleres Orange für den Hover-Effekt im Dark Mode */
 }
 
-.slider.round:before {
-    border-radius: 50%;
+body:not(.dark-mode) button:hover i {
+    color: #444444; /* Dunkleres Schwarz im Light Mode bei Hover */
 }
+
+/* Pagination Container */
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Pagination-Buttons */
+#pagination button {
+    background: none;
+    border: 2px solid #ddd;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+    font-size: 16px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body.dark-mode #pagination button {
+    border-color: #323232; /* Dunklerer Rand für die Buttons im Dark Mode */
+    color: #ff6600; /* Orange Schriftfarbe für die Buttons im Dark Mode */
+    background-color: #292a2d; /* Dunkler Hintergrund für die Buttons im Dark Mode */
+}
+
+/* Dark Mode Hover-Effekt für Pagination-Buttons */
+body.dark-mode #pagination button:hover {
+    border-color: #ff6600; /* Hellerer Rand im Dark Mode bei Hover */
+    background-color: #333; /* Etwas dunklerer Hintergrund im Dark Mode */
+}
+
+body:not(.dark-mode) #pagination button {
+    border-color: #ddd; /* Hellerer Rand für die Buttons im Light Mode */
+    color: #000; /* Schwarze Schriftfarbe für die Buttons im Light Mode */
+    background-color: #f9f9f9; /* Hellerer Hintergrund für die Buttons im Light Mode */
+}
+
+/* Light Mode Hover-Effekt für Pagination-Buttons */
+body:not(.dark-mode) #pagination button:hover {
+    border-color: #444; /* Dunklerer Rand im Light Mode bei Hover */
+    background-color: #ddd; /* Etwas dunklerer Hintergrund im Light Mode */
+}
+

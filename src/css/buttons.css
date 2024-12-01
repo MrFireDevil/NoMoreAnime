@@ -23,11 +23,6 @@
     /*height: 30px; /* Höhe des Icons */
 }
 
-/* Wenn du auch den Abstand zwischen den Buttons und der Suchleiste vergrößern möchtest */
-#search-input {
-    margin-left: 20px; /* Fügt einen Abstand zwischen der Searchbar und den Buttons hinzu */
-}
-
 /* Button und Input-Bereich */
 #buttons {
     display: flex;
@@ -38,7 +33,7 @@
 
 /* Allgemeines Styling für Buttons */
 button, #search-input {
-    margin: 4px 0;
+    margin: 6px 0;
     padding: 5px 20px;
     border-radius: 4px;
     font-size: 16px;

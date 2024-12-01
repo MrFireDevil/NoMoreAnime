@@ -24,11 +24,11 @@ body {
     background-color: lightgray;
     color: black;
     border: none;
-    padding: 5px 10px;
+    padding: 5px 20px;
     font-size: 16px;
     flex-grow: 1; /* Nimmt den verbleibenden Platz ein */
     box-sizing: border-box; /* Sorgt dafür, dass Padding und Border in der Breite enthalten sind */
-    margin-left: 10px; /* Abstand zu den Buttons */
+    margin-left: 20px; /* Abstand zu den Buttons */
 }
 
 .anime {

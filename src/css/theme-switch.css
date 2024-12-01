@@ -1,0 +1,73 @@
+/* Stil für den Toggle-Button mit Symbolen */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Das versteckte Input-Element */
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Der Schieberegler */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px; /* Abgerundete Ecken */
+}
+
+/* Symbole innerhalb des Sliders */
+.slider i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+/* Position der Sonne (Light Mode) */
+#sun-icon {
+    left: 8px;
+    color: #ffcd00; /* Gelb für die Sonne */
+}
+
+/* Position des Mondes (Dark Mode) */
+#moon-icon {
+    right: 8px;
+    color: #fff; /* Weiß für den Mond */
+    opacity: 0; /* Mond-Symbol zunächst unsichtbar */
+}
+
+/* Wenn der Input angehakt ist (Dark Mode aktiv) */
+input:checked + .slider {
+    background-color: #2196F3; /* Blaue Farbe für den Slider im Dark Mode */
+}
+
+/* Symbole bei aktivem Dark Mode */
+input:checked + .slider #sun-icon {
+    opacity: 0; /* Sonne ausblenden */
+}
+
+input:checked + .slider #moon-icon {
+    opacity: 1; /* Mond einblenden */
+    transform: translateY(-50%) translateX(-22px); /* Mond nach links verschieben */
+}
+
+/* Abgerundete Ecken für den Schieberegler */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}

@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="css/pagination.css">
   <link rel="stylesheet" type="text/css" href="css/scrollbar.css">
   <link rel="stylesheet" type="text/css" href="css/buttons.css">
+  <link rel="stylesheet" type="text/css" href="css/theme-switch.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <title>No More Anime</title>
 </head>
@@ -13,9 +14,12 @@
   <div id="header">
     <h1 id="title">Unwanted animes</h1>
     <div id="theme-switch-wrapper">
-     <label class="theme-switch" for="checkbox">
+      <label class="theme-switch" for="checkbox">
         <input type="checkbox" id="checkbox"/>
-        <div class="slider round"></div>
+        <div class="slider round">
+          <i class="fas fa-sun" id="sun-icon"></i>  <!-- Sonnen-Symbol für Light Mode -->
+          <i class="fas fa-moon" id="moon-icon"></i> <!-- Mond-Symbol für Dark Mode -->
+        </div>
       </label>
     </div>
   </div>
