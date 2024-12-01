@@ -1,5 +1,5 @@
 /* Import und Export Buttons */
-#export, #import {
+#export, #import, #reset {
     background: none; /* Orange Hintergrund */
     border: none; /* Kein Rand */
     border-radius: 50%; /* Runde Form */
@@ -17,7 +17,7 @@
 }
 
 /* Stil für die Icons innerhalb der Buttons */
-#export i, #import i {
+#export i, #import i, #reset i {
     font-size: 20px; /* Größeres Icon */
     /*width: 30px; /* Breite des Icons */
     /*height: 30px; /* Höhe des Icons */

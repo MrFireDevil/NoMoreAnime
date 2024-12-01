@@ -19,6 +19,14 @@ body {
     margin-bottom: 15px;
 }
 
+#storage-usage {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
 /* Stil für die Suchleiste */
 #search-input {
     background-color: lightgray;

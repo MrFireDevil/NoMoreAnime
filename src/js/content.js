@@ -10,12 +10,12 @@ function addHideButtons() {
         hideButton.className = 'hide-button';
         hideButton.addEventListener('click', () => {
             item.setAttribute('hidden', '');
-            chrome.storage.local.set({[animeName]: true});
+            chrome.storage.sync.set({[animeName]: true});
         });
         item.querySelector('.browse-card-hover__footer--oK4Wg').appendChild(hideButton);
 
         // On page load, hide previously hidden animes
-        chrome.storage.local.get([animeName], (result) => {
+        chrome.storage.sync.get([animeName], (result) => {
             if (result[animeName]) {
                 item.setAttribute('hidden', '');
             }
