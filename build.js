@@ -10,7 +10,7 @@ if (!fs.existsSync(buildDir)) {
 }
 
 // Zielpfad für die ZIP-Datei
-const output = fs.createWriteStream(path.join(buildDir, 'no-more-anime.crx'));
+const output = fs.createWriteStream(path.join(buildDir, 'no-more-anime.zip'));
 const archive = archiver('zip', { zlib: { level: 9 } });
 
 // Fehlerbehandlung
@@ -36,16 +36,22 @@ archive.directory(dirpath, destpath, data);
 // Beende das Archivieren
 archive.finalize().then(r => console.log("Archiver finalized!"));
 
-// ----- Erstelle die .pem-Datei (privater Schlüssel) -----
-const pki = forge.pki;
-
-// Erstelle das Schlüsselpaar
-const keypair = pki.rsa.generateKeyPair(2048);
-
-// Exportiere den privaten Schlüssel im PEM-Format
-const privateKeyPem = pki.privateKeyToPem(keypair.privateKey);
-
-// Speicher die .pem-Datei
 const pemPath = path.join(buildDir, 'private-key.pem');
-fs.writeFileSync(pemPath, privateKeyPem);
-console.log('Private Schlüssel (pem) erfolgreich erstellt und gespeichert!');
+
+// Prüfe, ob die .pem-Datei bereits existiert
+if (fs.existsSync(pemPath)) {
+    console.log('Private Schlüssel (pem) existiert bereits. Wird wiederverwendet.');
+} else {
+    // ----- Erstelle die .pem-Datei (privater Schlüssel) -----
+    const pki = forge.pki;
+
+    // Erstelle das Schlüsselpaar
+    const keypair = pki.rsa.generateKeyPair(2048);
+
+    // Exportiere den privaten Schlüssel im PEM-Format
+    const privateKeyPem = pki.privateKeyToPem(keypair.privateKey);
+
+    // Speicher die .pem-Datei
+    fs.writeFileSync(pemPath, privateKeyPem);
+    console.log('Private Schlüssel (pem) erfolgreich erstellt und gespeichert!');
+}
