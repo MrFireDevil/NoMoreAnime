@@ -1,17 +1,17 @@
-# CrunchyRoll Hide Unwanted Anime
- The Crunchyroll Hide-Unwanted-Anime Extension is a browser extension that lets users hide anime shows they don't want to see in the new releases section of the Crunchyroll website. It offers a personalized and clutter-free browsing experience tailored to individual preferences.
+# NoMoreAnime
+ The NoMoreAnime Extension is a browser extension that lets users hide anime shows they don't want to see in the new releases section of the Crunchyroll website. It offers a personalized and clutter-free browsing experience tailored to individual preferences.
  ___
 
  
-Introducing Crunchyroll Hide-Unwanted-Anime Extension - your ultimate solution to customize your Crunchyroll experience! With this powerful browser extension, you can effortlessly hide all the anime shows you're not interested in. This will make it easier than ever to navigate through the latest releases on Crunchyroll.
+Introducing NoMoreAnime Extension - your ultimate solution to customize your Crunchyroll experience! With this powerful browser extension, you can effortlessly hide all the anime shows you're not interested in. This will make it easier than ever to navigate through the latest releases on Crunchyroll.
 
 Are you tired of scrolling through countless titles that don't pique your interest? With Crunchyroll Hide Unwanted Anime Extension, you've taken back control of your anime-watching journey.
 
-With a clean and user-friendly interface, Crunchyroll Hide-Unwanted-Anime Extension seamlessly integrates with your Crunchyroll browsing experience. Stay up to date with the latest releases while maintaining a clean interface tailored to your tastes.
+With a clean and user-friendly interface, NoMoreAnime Extension seamlessly integrates with your Crunchyroll browsing experience. Stay up to date with the latest releases while maintaining a clean interface tailored to your tastes.
 
 Never miss the anime that really speaks to you again. Use Crunchyroll Hide Unwanted Anime Extension and enjoy a personalized Crunchyroll experience like never before. Get started today and discover a whole new world of anime tailored to your preferences.
 
-Currently, you can easily hide individual anime series/movies, but stay tuned for even more exciting functionalities coming soon! Customize your Crunchyroll journey like never before with the Crunchyroll Hide-Unwanted-Anime Extension.
+Currently, you can easily hide individual anime series/movies, but stay tuned for even more exciting functionalities coming soon! Customize your Crunchyroll journey like never before with the NoMoreAnime Extension.
 
 ## Hint
 
@@ -28,8 +28,8 @@ That's my first browser extension, and it's just a hobby for me. I'm eager to le
 - [x] DarkMode
 - [x] Searchbar
 - [x] Pagination
+- [x] Account sync between Browsers (free)
 - [ ] Set anime as viewed (pro episode / pro season)
-- [ ] Account sync between Browsers (free)
 - [ ] Anilist integration (sync)
 - [ ] **(NEW)** Modular system for customizing content
 - [ ] **(NEW)** Showcasing and hiding modules
@@ -45,22 +45,34 @@ We appreciate your input and will address your concerns as promptly as possible.
 
 ## Screenshots
 
-| crunchyroll                                                                                                                | Lightmode                                                                                                                  | Darkmode                                                                                                                   |
-|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| ![image](https://github.com/MrFireDevil/CrunchyrollHideUnwantedAnime/assets/46726838/a7bb8e01-21c7-4d5d-b573-002e1b713eac) | ![image](https://github.com/MrFireDevil/CrunchyrollHideUnwantedAnime/assets/46726838/065b3f82-edcb-4412-a1ee-4e3ca30f9be5) | ![image](https://github.com/MrFireDevil/CrunchyrollHideUnwantedAnime/assets/46726838/d4245199-218e-4850-bf1e-501c9087039e) |
+![img.png](screenshots/img.png)
 
-_Last edit 04.08.2023_
+_Last edit 01.12.2024_
 
 ## Changelog
 
 ___
 
-### 1.1 News ideas and little changes
+### 1.2 More beautiful design and features
+
+_Changes_
+- Update lightmode and darkmode
+- Replace text to symbols
+- Make clean more design
+- Update pagination bar
+- Update images in [README](README.md)
+
+_Added_
+- **(NEW)** Browser sync
+- **(NEW)** Reset button
+
+
+### 1.1 New ideas and little changes
 
 _Changes_
 - Page size from _`6`_ to _`25`_ 
 - Add designed scrollbar for unwatched animes
-- Update images in README.md
+- Update images in [README](README.md)
 
 _Added_
 - [ ] **(NEW)** Modular system for customizing content
