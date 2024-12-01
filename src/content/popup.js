@@ -18,20 +18,15 @@ chrome.storage.local.get(null, (items) => {
         // Get the animes for the current page
         const animesForPage = hiddenAnimes.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
-        // Update the page indicator
+        // Update the page indicator (now showing "currentPage / totalPages")
         pageIndicator.innerHTML = '';
         const totalPages = Math.ceil(hiddenAnimes.length / itemsPerPage);
-        let startPage = Math.max(0, Math.min(totalPages - 5, currentPage - 2));
-        for (let i = startPage; i < startPage + 5; i++) {
-            const dot = document.createElement('span');
-            dot.className = 'dot';
-            if (i === currentPage) {
-                dot.className += ' active';
-            }
-            pageIndicator.appendChild(dot);
-        }
 
-        // Add the animes for the current page
+        // Display the page indicator as "currentPage / totalPages"
+        const pageText = document.createElement('span');
+        pageText.textContent = `Seite ${currentPage + 1} / ${totalPages}`;
+        pageIndicator.appendChild(pageText);
+
         animesForPage.forEach((animeName) => {
             const animeDiv = document.createElement('div');
             animeDiv.className = 'anime';
@@ -41,31 +36,40 @@ chrome.storage.local.get(null, (items) => {
             animeNameSpan.className = 'anime-name';
             animeDiv.appendChild(animeNameSpan);
 
-            const unhideButton = document.createElement('button');
-            unhideButton.textContent = 'Einblenden';
-            unhideButton.addEventListener('click', () => {
-                // Remove this anime from the hidden list
+            // Ersetzen des Text-Buttons durch das Papierkorb-Icon
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-button'; // Setze eine Klasse für das Styling
+
+            // Füge das Papierkorb-Icon hinzu
+            const icon = document.createElement('i');
+            icon.classList.add('fas', 'fa-trash-alt'); // Papierkorb-Icon
+            deleteButton.appendChild(icon);
+
+            // Event-Listener für das Löschen des Animes
+            deleteButton.addEventListener('click', () => {
+                // Entferne das Anime aus dem lokalen Speicher
                 chrome.storage.local.remove(animeName, () => {
-                    // Remove this anime from the popup
+                    // Entferne das Anime-Element aus der Anzeige
                     animeDiv.remove();
 
-                    // Refresh the current tab
-                    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-                        chrome.tabs.reload(tabs[0].id);
-                    });
-
-                    // Remove the anime from the hiddenAnimes array and update the list
+                    // Entferne das Anime aus der hiddenAnimes Liste und aktualisiere die Anzeige
                     hiddenAnimes = hiddenAnimes.filter(anime => anime !== animeName);
                     updateList();
                 });
             });
-            animeDiv.appendChild(unhideButton);
 
-            hiddenAnimesList.appendChild(animeDiv);
+            animeDiv.appendChild(deleteButton); // Papierkorb-Button zum Anime hinzufügen
+            hiddenAnimesList.appendChild(animeDiv); // Anime zur Liste hinzufügen
         });
+
+
+
+
+
         // Enable or disable the page buttons based on the current page
         prevPageButton.disabled = currentPage === 0;
         nextPageButton.disabled = (currentPage + 1) * itemsPerPage >= hiddenAnimes.length;
+
         // Update the title to include the number of hidden animes
         title.textContent = `Unwanted animes (${hiddenAnimes.length})`;
     }
