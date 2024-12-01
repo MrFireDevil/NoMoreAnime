@@ -3,7 +3,7 @@ const itemsPerPage = 25;
 
 // Funktion zum Speichern von Daten mit Sync-Speicher
 function saveData(data) {
-    chrome.storage.sync.set(data, function() {
+    chrome.storage.sync.set(data, function () {
         if (chrome.runtime.lastError) {
             // Wenn das Limit erreicht wurde, zeige eine Option an
             if (chrome.runtime.lastError.message.includes('QUOTA_BYTES_PER_ITEM')) {
@@ -25,7 +25,7 @@ function showSyncLimitExceededMessage(data) {
 
 // Funktion zum Speichern von Daten im Local-Speicher
 function saveDataLocally(data) {
-    chrome.storage.local.set(data, function() {
+    chrome.storage.local.set(data, function () {
         console.log('Daten wurden im Local Storage gespeichert.');
     });
 }
@@ -168,7 +168,7 @@ function exportAsFile() {
         const filename = `hidden_animes_${timestamp}.json`;
 
         // Erstelle einen Blob für den Export (als JSON-Datei)
-        const blob = new Blob([exportData], { type: 'application/json' });
+        const blob = new Blob([exportData], {type: 'application/json'});
         const url = URL.createObjectURL(blob);
 
         // Erstelle einen Download-Link
