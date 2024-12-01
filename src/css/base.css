@@ -9,6 +9,7 @@ body {
     max-width: 100%; /* Sicherstellen, dass es nicht breiter als der Bildschirm wird */
     max-height: 100vh; /* Sicherstellen, dass es nicht höher als der Bildschirm wird */
     box-sizing: border-box;
+    user-select: none;
 }
 
 /* Header mit Titel und Darkmode-Switch */
