@@ -1,0 +1,13 @@
+/* Pagination-Container */
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 10px;
+}
+
+/* Anzeige der aktuellen Seite */
+#page-indicator {
+    margin: 0 10px;
+}

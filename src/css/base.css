@@ -1,0 +1,57 @@
+/* Grundlegende Formatierung für den Body */
+body {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;  /* Feste Breite für die Extension */
+    height: 560px; /* Feste Höhe für die Extension */
+    max-width: 100%; /* Sicherstellen, dass es nicht breiter als der Bildschirm wird */
+    max-height: 100vh; /* Sicherstellen, dass es nicht höher als der Bildschirm wird */
+    box-sizing: border-box;
+}
+
+/* Header mit Titel und Darkmode-Switch */
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* Stil für die Suchleiste */
+#search-input {
+    background-color: lightgray;
+    color: black;
+    border: none;
+    padding: 5px 10px;
+    font-size: 16px;
+    flex-grow: 1; /* Nimmt den verbleibenden Platz ein */
+    box-sizing: border-box; /* Sorgt dafür, dass Padding und Border in der Breite enthalten sind */
+    margin-left: 10px; /* Abstand zu den Buttons */
+}
+
+.anime {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* Hier wird der Button relativ zur Box positioniert */
+}
+
+.anime-name {
+    font-size: 18px; /* Schriftgröße erhöhen */
+    margin-right: 10px;
+    flex-grow: 1; /* Der Name soll den verfügbaren Platz einnehmen */
+}
+
+/* Anime-Liste, die scrollbar ist */
+#anime-list-container {
+    overflow-y: auto;
+    margin-bottom: 10px;
+    width: 100%;
+    flex-grow: 1;
+}

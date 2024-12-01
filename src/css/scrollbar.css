@@ -1,0 +1,23 @@
+/* Stil für die gesamte Scrollleiste */
+::-webkit-scrollbar {
+    width: 8px;  /* Breite der Scrollleiste */
+    height: 8px; /* Höhe der horizontalen Scrollleiste */
+}
+
+/* Stil für den "Track" (Hintergrund der Scrollleiste) */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Heller Hintergrund */
+    border-radius: 10px; /* Abgerundete Ecken */
+}
+
+/* Stil für den "Thumb" (Schieberegler der Scrollleiste) */
+::-webkit-scrollbar-thumb {
+    background-color: #888;  /* Graue Farbe für den Schieberegler */
+    border-radius: 10px;     /* Abgerundete Ecken */
+    border: 2px solid #f1f1f1; /* Etwas Abstand vom Track */
+}
+
+/* Hover-Effekt für den Schieberegler */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Dunklere Farbe, wenn der Benutzer darüber schwebt */
+}

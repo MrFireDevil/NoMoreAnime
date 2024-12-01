@@ -1,4 +1,4 @@
-// Listen for messages from content.js
+// Listen for messages from js.js
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.method === 'storeAnime') {
     // Add the anime to the hidden animes list

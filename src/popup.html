@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" type="text/css" href="popup.css">
+  <link rel="stylesheet" type="text/css" href="css/base.css">
+  <link rel="stylesheet" type="text/css" href="css/darkmode.css">
+  <link rel="stylesheet" type="text/css" href="css/pagination.css">
+  <link rel="stylesheet" type="text/css" href="css/scrollbar.css">
+  <link rel="stylesheet" type="text/css" href="css/buttons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <title>Unwanted animes</title>
+  <title>No More Anime</title>
 </head>
 <body>
   <div id="header">
@@ -16,8 +20,8 @@
     </div>
   </div>
   <div id="buttons">
-    <button id="export">Export</button>
-    <button id="import">Import</button>
+    <button id="export"><i class="fas fa-file-export"></i></button>
+    <button id="import"><i class="fas fa-file-import"></i></button>
     <input type="text" id="search-input" placeholder="Search">
   </div>
   <input type="file" id="file-input" style="display: none;">
@@ -29,6 +33,6 @@
     <span id="page-indicator"></span>
     <button id="next-page">Next page</button>
   </div>
-  <script src="popup.js"></script>
+  <script src="js/popup.js"></script>
 </body>
 </html>

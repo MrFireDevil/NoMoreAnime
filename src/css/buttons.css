@@ -1,0 +1,79 @@
+/* Import und Export Buttons */
+#export, #import {
+    background: none; /* Orange Hintergrund */
+    border: none; /* Kein Rand */
+    border-radius: 50%; /* Runde Form */
+    width: 30px; /* Größe des Buttons */
+    height: 30px; /* Höhe des Buttons */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 5px;
+    cursor: pointer; /* Zeigt, dass es klickbar ist */
+    padding: 0; /* Kein Padding */
+    color: #e07c00;
+    transition: background-color 0.3s ease; /* Sanfter Übergang */
+}
+
+/* Stil für die Icons innerhalb der Buttons */
+#export i, #import i {
+    font-size: 20px; /* Größeres Icon */
+    /*width: 30px; /* Breite des Icons */
+    /*height: 30px; /* Höhe des Icons */
+}
+
+/* Wenn du auch den Abstand zwischen den Buttons und der Suchleiste vergrößern möchtest */
+#search-input {
+    margin-left: 20px; /* Fügt einen Abstand zwischen der Searchbar und den Buttons hinzu */
+}
+
+/* Button und Input-Bereich */
+#buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* Allgemeines Styling für Buttons */
+button, #search-input {
+    margin: 4px 0;
+    padding: 5px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;  /* Stellen sicher, dass sie die volle Breite nutzen */
+}
+
+/* Der Button für das Papierkorb-Symbol */
+.delete-button {
+    background: none; /* Kein Hintergrund */
+    border: none; /* Kein Rand */
+    cursor: pointer; /* Zeigt an, dass es klickbar ist */
+    padding: 0; /* Kein Padding, Button soll nur so groß wie das Symbol sein */
+    margin: 0 10px 0 0;
+    display: inline-flex; /* Zeigt den Button inline an, aber ohne zusätzliche Breite */
+    align-items: center; /* Zentriert das Symbol vertikal */
+    justify-content: center; /* Zentriert das Symbol horizontal */
+    width: auto; /* Verhindert, dass der Button die gesamte Zeilenbreite einnimmt */
+    height: auto; /* Verhindert, dass der Button mehr Höhe einnimmt als das Symbol */
+    box-sizing: content-box; /* Verhindert, dass der Button eine größere Fläche als das Symbol beansprucht */
+}
+
+/* Das Papierkorb-Icon */
+.delete-button i {
+    color: #ff0000; /* Rote Farbe für das Papierkorb-Symbol */
+    font-size: 20px; /* Die Größe des Symbols */
+    transition: color 0.3s ease; /* Sanfter Übergang beim Hover */
+}
+
+/* Hover-Effekt für das Papierkorb-Icon */
+.delete-button:hover i {
+    color: #d70000; /* Dunkleres Rot beim Hover */
+}
+
+/* Entfernen des Fokusrahmens bei Klick */
+.delete-button:focus {
+    outline: none;
+}
