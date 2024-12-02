@@ -55,6 +55,7 @@ function createAnimeElement(animeName, hiddenAnimes, updateCallback) {
 
     const deleteButton = document.createElement('button');
     deleteButton.className = 'delete-button';
+    deleteButton.title = "Delete";
     const icon = document.createElement('i');
     icon.classList.add('fas', 'fa-trash-alt');
     deleteButton.appendChild(icon);
@@ -92,7 +93,9 @@ function updateList(hiddenAnimes) {
     const prevPageButton = document.getElementById('prev-page');
     const nextPageButton = document.getElementById('next-page');
     prevPageButton.disabled = currentPage === 0;
+    prevPageButton.title = "Previous page";
     nextPageButton.disabled = (currentPage + 1) * itemsPerPage >= hiddenAnimes.length;
+    nextPageButton.title = "Next page";
 
     const title = document.getElementById('title');
     title.textContent = `Unwanted animes (${hiddenAnimes.length})`;
