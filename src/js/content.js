@@ -1,6 +1,5 @@
 function addHideButtons() {
     document.querySelectorAll('.browse-card').forEach((item) => {
-        // Skip if the hide button has already been added
         if (item.querySelector('.hide-button')) return;
 
         const animeName = item.querySelector('[class^="browse-card-hover__title-link"]').textContent;
@@ -13,8 +12,6 @@ function addHideButtons() {
             chrome.storage.sync.set({[animeName]: true});
         });
         item.querySelector('.browse-card-hover__footer--oK4Wg').appendChild(hideButton);
-
-        // On page load, hide previously hidden animes
         chrome.storage.sync.get([animeName], (result) => {
             if (result[animeName]) {
                 item.setAttribute('hidden', '');
@@ -24,11 +21,10 @@ function addHideButtons() {
 }
 
 setTimeout(function() {
-// Run addHideButtons immediately on page load
     addHideButtons();
-}, 1000);  // Wait for 1 second
+}, 1000);
 
-// Then set up a MutationObserver to run addHideButtons when the DOM changes
+
 const observer = new MutationObserver(addHideButtons);
 observer.observe(document.body, {childList: true, subtree: true});
 

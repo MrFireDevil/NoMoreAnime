@@ -1,56 +1,50 @@
 let currentPage = 0;
 const itemsPerPage = 25;
 
-// Funktion zum Speichern von Daten mit Sync-Speicher
 function saveData(data) {
     chrome.storage.sync.set(data, function () {
         if (chrome.runtime.lastError) {
-            // Wenn das Limit erreicht wurde, zeige eine Option an
             if (chrome.runtime.lastError.message.includes('QUOTA_BYTES_PER_ITEM')) {
                 showSyncLimitExceededMessage(data);
             }
         } else {
-            console.log('Daten wurden mit Sync gespeichert.');
+            console.log('Data has been synchronized');
         }
     });
 }
 
-// Zeige eine Benachrichtigung an, dass das Limit überschritten wurde
 function showSyncLimitExceededMessage(data) {
-    const message = 'Das Speichern über den Sync-Speicher überschreitet das Limit. Möchtest du die Daten lokal speichern?';
+    const message = 'Saving via the sync memory exceeds the limit. Do you want to save the data locally?';
     if (confirm(message)) {
         saveDataLocally(data);
     }
 }
 
-// Funktion zum Speichern von Daten im Local-Speicher
 function saveDataLocally(data) {
     chrome.storage.local.set(data, function () {
-        console.log('Daten wurden im Local Storage gespeichert.');
+        console.log('Data was saved in local storage.');
     });
 }
 
-// Berechne den Speicherverbrauch
 function calculateStorageUsage() {
     chrome.storage.sync.get(null, (items) => {
         const totalSize = Object.keys(items).reduce((size, key) => {
-            const item = JSON.stringify(items[key]); // Umwandeln in JSON-String
+            const item = JSON.stringify(items[key]);
             return size + item.length;
         }, 0);
-        const storageUsageInKB = (totalSize / 1024).toFixed(2); // Umrechnen in KB
-        document.getElementById('storage-usage').textContent = `Speicherverbrauch: ${storageUsageInKB} KB`;
+        const storageUsageInKB = (totalSize / 1024).toFixed(2);
+        document.getElementById('storage-usage').textContent = `Current usage: ${storageUsageInKB} KB`;
     });
 }
 
-// Aktualisiere die Liste
-function createAnimeElement(animeName, hiddenAnimes, updateCallback) {
+function createAnimeElement(animeName, hiddenAnimeList, updateCallback) {
     const animeDiv = document.createElement('div');
     animeDiv.className = 'anime';
 
     const animeNameSpan = document.createElement('span');
     animeNameSpan.textContent = animeName;
     animeNameSpan.className = 'anime-name';
-    animeNameSpan.title = animeName; // Vollständiger Name wird als Tooltip angezeigt
+    animeNameSpan.title = animeName;
     animeDiv.appendChild(animeNameSpan);
 
     const deleteButton = document.createElement('button');
@@ -62,7 +56,7 @@ function createAnimeElement(animeName, hiddenAnimes, updateCallback) {
 
     deleteButton.addEventListener('click', () => {
         chrome.storage.sync.remove(animeName, () => {
-            const updatedAnimes = hiddenAnimes.filter(anime => anime !== animeName);
+            const updatedAnimes = hiddenAnimeList.filter(anime => anime !== animeName);
             updateCallback(updatedAnimes);
         });
     });
@@ -71,44 +65,43 @@ function createAnimeElement(animeName, hiddenAnimes, updateCallback) {
     return animeDiv;
 }
 
-function updatePagination(hiddenAnimes) {
+function updatePagination(hiddenAnimeList) {
     const pageIndicator = document.getElementById('page-indicator');
-    const totalPages = Math.ceil(hiddenAnimes.length / itemsPerPage);
-    pageIndicator.innerHTML = `Seite ${currentPage + 1} / ${totalPages}`;
+    const totalPages = Math.ceil(hiddenAnimeList.length / itemsPerPage);
+    pageIndicator.innerHTML = `Page ${currentPage + 1} / ${totalPages}`;
 }
 
-function updateList(hiddenAnimes) {
-    const hiddenAnimesList = document.getElementById('hidden-animes-list');
-    hiddenAnimesList.innerHTML = '';
+function updateList(hiddenAnimeList) {
+    const hiddenAnimeListList = document.getElementById('hidden-anime-list');
+    hiddenAnimeListList.innerHTML = '';
 
-    const animesForPage = hiddenAnimes.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
+    const animesForPage = hiddenAnimeList.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
     animesForPage.forEach((animeName) => {
-        const animeDiv = createAnimeElement(animeName, hiddenAnimes, updateList);
-        hiddenAnimesList.appendChild(animeDiv);
+        const animeDiv = createAnimeElement(animeName, hiddenAnimeList, updateList);
+        hiddenAnimeListList.appendChild(animeDiv);
     });
 
-    updatePagination(hiddenAnimes);
+    updatePagination(hiddenAnimeList);
 
-    // Update buttons
     const prevPageButton = document.getElementById('prev-page');
     const nextPageButton = document.getElementById('next-page');
     prevPageButton.disabled = currentPage === 0;
     prevPageButton.title = "Previous page";
-    nextPageButton.disabled = (currentPage + 1) * itemsPerPage >= hiddenAnimes.length;
+    nextPageButton.disabled = (currentPage + 1) * itemsPerPage >= hiddenAnimeList.length;
     nextPageButton.title = "Next page";
 
     const title = document.getElementById('title');
-    title.textContent = `Unwanted animes (${hiddenAnimes.length})`;
+    title.textContent = `Unwanted animes (${hiddenAnimeList.length})`;
 }
 
 document.getElementById('reset').addEventListener('click', () => {
-    const userConfirmed = confirm("Bist du sicher, dass du alle gespeicherten Daten löschen möchtest?");
+    const userConfirmed = confirm("Are you sure you want to delete all saved data?");
     if (userConfirmed) {
         chrome.storage.sync.clear(() => {
-            alert("Cache erfolgreich zurückgesetzt!");
+            alert("Cache successfully reset!");
             chrome.storage.sync.get(null, (items) => {
-                let hiddenAnimes = Object.keys(items).filter((key) => items[key]);
-                updateList(hiddenAnimes);
+                let hiddenAnimeList = Object.keys(items).filter((key) => items[key]);
+                updateList(hiddenAnimeList);
                 calculateStorageUsage();
                 reloadPageIfNecessary();
             });
@@ -117,16 +110,16 @@ document.getElementById('reset').addEventListener('click', () => {
 });
 
 chrome.storage.sync.get(null, (items) => {
-    let hiddenAnimes = Object.keys(items).filter((key) => items[key]);
+    let hiddenAnimeList = Object.keys(items).filter((key) => items[key]);
 
     const searchInput = document.getElementById('search-input');
     searchInput.addEventListener('input', (event) => {
         const searchQuery = event.target.value.toLowerCase();
-        hiddenAnimes = Object.keys(items)
+        hiddenAnimeList = Object.keys(items)
             .filter((key) => items[key] && key.toLowerCase().includes(searchQuery))
             .sort((a, b) => Math.abs(a.length - searchQuery.length) - Math.abs(b.length - searchQuery.length));
-        currentPage = 0; // Reset current page
-        updateList(hiddenAnimes);
+        currentPage = 0;
+        updateList(hiddenAnimeList);
     });
 
     const prevPageButton = document.getElementById('prev-page');
@@ -134,29 +127,25 @@ chrome.storage.sync.get(null, (items) => {
 
     prevPageButton.addEventListener('click', () => {
         currentPage--;
-        updateList(hiddenAnimes);
+        updateList(hiddenAnimeList);
     });
 
     nextPageButton.addEventListener('click', () => {
         currentPage++;
-        updateList(hiddenAnimes);
+        updateList(hiddenAnimeList);
     });
 
-    updateList(hiddenAnimes);
+    updateList(hiddenAnimeList);
 });
 
-// Funktion zum Neuladen nur, wenn es die Crunchyroll-Seite ist
 function reloadPageIfNecessary() {
-    // Überprüfe die URL der aktuellen Seite
     const currentUrl = window.location.href;
-
-    // Nur auf Crunchyroll-Seiten neuladen (angepasst auf die URL-Struktur von Crunchyroll)
     if (currentUrl.includes("crunchyroll.com")) {
         chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-            chrome.tabs.reload(tabs[0].id); // Nur auf Crunchyroll-Seiten neu laden
+            chrome.tabs.reload(tabs[0].id);
         });
     } else {
-        console.log("Keine Crunchyroll-Seite, daher kein Neuladen.");
+        console.log("No Crunchyroll page, therefore no reload.");
     }
 }
 
@@ -166,24 +155,15 @@ document.getElementById('export').addEventListener('click', () => {
 
 function exportAsFile() {
     chrome.storage.sync.get(null, (items) => {
-        const hiddenAnimes = Object.keys(items).filter((key) => items[key]);
-
-        // Exportiere die Daten (z. B. in eine Datei)
-        const exportData = JSON.stringify(hiddenAnimes);
-        // Erstelle einen Timestamp (z. B. 2024-12-01_14-30-45)
-        const timestamp = new Date().toISOString().replace(/[:.]/g, "_"); // Ersetzt ":" und "." mit "_"
-
-        // Erstelle den Dateinamen mit dem Timestamp
-        const filename = `hidden_animes_${timestamp}.json`;
-
-        // Erstelle einen Blob für den Export (als JSON-Datei)
+        const hiddenAnimeList = Object.keys(items).filter((key) => items[key]);
+        const exportData = JSON.stringify(hiddenAnimeList);
+        const timestamp = new Date().toISOString().replace(/[:.]/g, "_");
+        const filename = `hidden_anime_${timestamp}.json`;
         const blob = new Blob([exportData], {type: 'application/json'});
         const url = URL.createObjectURL(blob);
-
-        // Erstelle einen Download-Link
         const a = document.createElement('a');
         a.href = url;
-        a.download = filename; // Dateiname mit Timestamp
+        a.download = filename;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -195,7 +175,7 @@ document.getElementById('import').addEventListener('click', () => {
 });
 
 document.addEventListener('contextmenu', (event) => {
-    event.preventDefault(); // Verhindert das Rechtsklick-Kontextmenü
+    event.preventDefault();
 });
 
 document.getElementById('file-input').addEventListener('change', (event) => {
@@ -205,23 +185,18 @@ document.getElementById('file-input').addEventListener('change', (event) => {
     }
     const reader = new FileReader();
     reader.onload = (event) => {
-        const hiddenAnimes = JSON.parse(event.target.result);
+        const hiddenAnimeList = JSON.parse(event.target.result);
         const items = {};
-        for (const anime of hiddenAnimes) {
+        for (const anime of hiddenAnimeList) {
             items[anime] = true;
         }
         saveData(items);
-
-        // Nur neu laden, wenn es notwendig ist (z. B. Crunchyroll)
         reloadPageIfNecessary();
-
-        // Aktualisiere Popup
         window.location.reload();
     };
     reader.readAsText(file);
 });
 
-// Darkmode slider
 const themeSwitch = document.querySelector('#checkbox');
 themeSwitch.checked = localStorage.getItem('darkMode') === 'true';
 
