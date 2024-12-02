@@ -117,3 +117,22 @@ body:not(.dark-mode) #pagination button:hover {
     background-color: #ddd; /* Etwas dunklerer Hintergrund im Light Mode */
 }
 
+/* Scrollbar im Darkmode */
+body.dark-mode ::-webkit-scrollbar {
+    width: 8px; /* Breite des Scrollbalkens */
+}
+
+body.dark-mode ::-webkit-scrollbar-track {
+    background: #2c2c2c; /* Hintergrund der Scroll-Leiste */
+    border: none; /* Entfernt eventuell sichtbare Umrandungen */
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: #555; /* Farbe des Scrollbalkens */
+    border-radius: 4px; /* Abgerundete Ecken */
+    border: 2px solid #2c2c2c; /* Passt sich dem Hintergrund an */
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: #777; /* Farbe bei Hover */
+}
