@@ -50,6 +50,7 @@ function createAnimeElement(animeName, hiddenAnimes, updateCallback) {
     const animeNameSpan = document.createElement('span');
     animeNameSpan.textContent = animeName;
     animeNameSpan.className = 'anime-name';
+    animeNameSpan.title = animeName; // Vollständiger Name wird als Tooltip angezeigt
     animeDiv.appendChild(animeNameSpan);
 
     const deleteButton = document.createElement('button');

@@ -55,6 +55,13 @@ body {
     font-size: 18px; /* Schriftgröße erhöhen */
     margin-right: 10px;
     flex-grow: 1; /* Der Name soll den verfügbaren Platz einnehmen */
+    display: inline-block;
+    max-width: 90%; /* Passe die maximale Breite an */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: default;
 }
 
 /* Anime-Liste, die scrollbar ist */
