@@ -43,48 +43,53 @@ function calculateStorageUsage() {
 }
 
 // Aktualisiere die Liste
-function updateList(hiddenAnimes, items) {
-    const hiddenAnimesList = document.getElementById('hidden-animes-list');
+function createAnimeElement(animeName, hiddenAnimes, updateCallback) {
+    const animeDiv = document.createElement('div');
+    animeDiv.className = 'anime';
+
+    const animeNameSpan = document.createElement('span');
+    animeNameSpan.textContent = animeName;
+    animeNameSpan.className = 'anime-name';
+    animeDiv.appendChild(animeNameSpan);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'delete-button';
+    const icon = document.createElement('i');
+    icon.classList.add('fas', 'fa-trash-alt');
+    deleteButton.appendChild(icon);
+
+    deleteButton.addEventListener('click', () => {
+        chrome.storage.sync.remove(animeName, () => {
+            const updatedAnimes = hiddenAnimes.filter(anime => anime !== animeName);
+            updateCallback(updatedAnimes);
+        });
+    });
+
+    animeDiv.appendChild(deleteButton);
+    return animeDiv;
+}
+
+function updatePagination(hiddenAnimes) {
     const pageIndicator = document.getElementById('page-indicator');
+    const totalPages = Math.ceil(hiddenAnimes.length / itemsPerPage);
+    pageIndicator.innerHTML = `Seite ${currentPage + 1} / ${totalPages}`;
+}
+
+function updateList(hiddenAnimes) {
+    const hiddenAnimesList = document.getElementById('hidden-animes-list');
     hiddenAnimesList.innerHTML = '';
 
     const animesForPage = hiddenAnimes.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
-    pageIndicator.innerHTML = '';
-    const totalPages = Math.ceil(hiddenAnimes.length / itemsPerPage);
-    const pageText = document.createElement('span');
-    pageText.textContent = `Seite ${currentPage + 1} / ${totalPages}`;
-    pageIndicator.appendChild(pageText);
-
     animesForPage.forEach((animeName) => {
-        const animeDiv = document.createElement('div');
-        animeDiv.className = 'anime';
-
-        const animeNameSpan = document.createElement('span');
-        animeNameSpan.textContent = animeName;
-        animeNameSpan.className = 'anime-name';
-        animeDiv.appendChild(animeNameSpan);
-
-        const deleteButton = document.createElement('button');
-        deleteButton.className = 'delete-button';
-        const icon = document.createElement('i');
-        icon.classList.add('fas', 'fa-trash-alt');
-        deleteButton.appendChild(icon);
-
-        deleteButton.addEventListener('click', () => {
-            chrome.storage.sync.remove(animeName, () => {
-                animeDiv.remove();
-                hiddenAnimes = hiddenAnimes.filter(anime => anime !== animeName);
-                updateList(hiddenAnimes, items);
-            });
-        });
-
-        animeDiv.appendChild(deleteButton);
+        const animeDiv = createAnimeElement(animeName, hiddenAnimes, updateList);
         hiddenAnimesList.appendChild(animeDiv);
     });
 
+    updatePagination(hiddenAnimes);
+
+    // Update buttons
     const prevPageButton = document.getElementById('prev-page');
     const nextPageButton = document.getElementById('next-page');
-
     prevPageButton.disabled = currentPage === 0;
     nextPageButton.disabled = (currentPage + 1) * itemsPerPage >= hiddenAnimes.length;
 
@@ -99,7 +104,7 @@ document.getElementById('reset').addEventListener('click', () => {
             alert("Cache erfolgreich zurückgesetzt!");
             chrome.storage.sync.get(null, (items) => {
                 let hiddenAnimes = Object.keys(items).filter((key) => items[key]);
-                updateList(hiddenAnimes, items);
+                updateList(hiddenAnimes);
                 calculateStorageUsage();
                 reloadPageIfNecessary();
             });
@@ -117,7 +122,7 @@ chrome.storage.sync.get(null, (items) => {
             .filter((key) => items[key] && key.toLowerCase().includes(searchQuery))
             .sort((a, b) => Math.abs(a.length - searchQuery.length) - Math.abs(b.length - searchQuery.length));
         currentPage = 0; // Reset current page
-        updateList(hiddenAnimes, items);
+        updateList(hiddenAnimes);
     });
 
     const prevPageButton = document.getElementById('prev-page');
@@ -125,15 +130,15 @@ chrome.storage.sync.get(null, (items) => {
 
     prevPageButton.addEventListener('click', () => {
         currentPage--;
-        updateList(hiddenAnimes, items);
+        updateList(hiddenAnimes);
     });
 
     nextPageButton.addEventListener('click', () => {
         currentPage++;
-        updateList(hiddenAnimes, items);
+        updateList(hiddenAnimes);
     });
 
-    updateList(hiddenAnimes, items);
+    updateList(hiddenAnimes);
 });
 
 // Funktion zum Neuladen nur, wenn es die Crunchyroll-Seite ist
@@ -183,6 +188,10 @@ function exportAsFile() {
 
 document.getElementById('import').addEventListener('click', () => {
     document.getElementById('file-input').click();
+});
+
+document.addEventListener('contextmenu', (event) => {
+    event.preventDefault(); // Verhindert das Rechtsklick-Kontextmenü
 });
 
 document.getElementById('file-input').addEventListener('change', (event) => {
