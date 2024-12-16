@@ -140,12 +140,18 @@ chrome.storage.sync.get(null, (items) => {
 
 function reloadPageIfNecessary() {
     const currentUrl = window.location.href;
-    if (currentUrl.includes("crunchyroll.com")) {
-        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-            chrome.tabs.reload(tabs[0].id);
-        });
-    } else {
-        console.log("No Crunchyroll page, therefore no reload.");
+    try {
+        const url = new URL(currentUrl);
+        const host = url.host;
+        if (host === "crunchyroll.com" || host.endsWith(".crunchyroll.com")) {
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                chrome.tabs.reload(tabs[0].id);
+            });
+        } else {
+            console.log("No Crunchyroll page, therefore no reload.");
+        }
+    } catch (e) {
+        console.error("Invalid URL:", e);
     }
 }
 
