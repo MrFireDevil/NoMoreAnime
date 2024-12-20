@@ -36,7 +36,8 @@ That's my first browser extension, and it's just a hobby for me. I'm eager to le
 - [ ] **(NEW)** Interactive customizable modules
 
 ## Ideas
- _No actually ideas_
+- Automatic Intro Skip
+- Adding Intro Skip entries
 
 ## Support
 
